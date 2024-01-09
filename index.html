@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Your Website</title>
+    <style>
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9;
+
+        }
+
+        /* Set max-width for popups */
+        .popup {
+            max-width: 400px;
+            width: 100%;
+            position: relative;
+            z-index: 1001;
+        }
+
+        .close-icon {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            cursor: pointer;
+            width: 10px;
+            height: 10px;
+        }
+    </style>
+</head>
+
+<body class="font-sans bg-gray-100">
+
+    <div>
+        <!-- Navigation Bar -->
+        <header class="bg-blue-500">
+            <nav class="p-4 text-white container px-4 max-w-7xl mx-auto">
+                <div class="container px-4 mx-auto flex justify-between items-center">
+                    <a href="#" class="sm:text-[16px] md:text-lg font-semibold">Your Website</a>
+                    
+                    <!-- Hamburger icon for mobile -->
+                    <div class="lg:hidden">
+                        <button id="mobileMenuBtn" class="text-white focus:outline-none">
+                            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 6h16M4 12h16m-7 6h7"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <ul class="hidden lg:flex space-x-4 items-center">
+                        <li><a href="#" class="hover:text-gray-300">Home</a></li>
+                        <li><a href="#" class="hover:text-gray-300 ml-4">About</a></li>
+                        <li><a href="#" class="hover:text-gray-300 ml-4">Contact</a></li>
+                        <li><button id="loginBtn"
+                                class="bg-blue-500 bg-blue-600 hover:bg-blue-400 text-white pt-1 pb-2 px-4 rounded-full ml-4">Login</button>
+                        </li>
+                        <li><button id="signupBtn"
+                                class="ml-4 bg-gray-300 hover:bg-gray-100 text-gray-800 pt-1 pb-2 px-4 rounded-full">Sign
+                                Up</button></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        
+
+        <!-- Hero Section -->
+        <section class="bg-gray-800 text-white h-screen  flex items-center justify-center">
+            <div class="text-center container px-4 max-w-7xl mx-auto">
+                <h1 class="text-3xl md:text-4xl font-bold mb-4">Welcome to Your Website</h1>
+                <p class="text-[14px] sm:text-[16px] md:text-lg mb-0 ">Discover the amazing features we offer.</p>
+            </div>
+        </section>
+
+        <!-- Login Modal -->
+        <div id="loginModal" class="fixed inset-0 z-10 flex items-center justify-center hidden">
+            <div class="overlay" id="closeoverlay"></div>
+            <div class="bg-white p-8 rounded shadow-md relative z-20 popup">
+                <i class="fa fa-close close-icon" style="font-size:24px" id="closeLogin"></i>
+                <h2 class="text-2xl font-semibold mb-4">Login</h2>
+                <form id="loginForm">
+                    <div class="mb-4">
+                        <label for="username" class="block text-gray-700 text-sm font-medium mb-2">Username</label>
+                        <input type="text" id="username" name="username" class="w-full border p-2 rounded" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="password" class="block text-gray-700 text-sm font-medium mb-2">Password</label>
+                        <input type="password" id="password" name="password" class="w-full border p-2 rounded" required>
+                    </div>
+                    <button type="submit"
+                        class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-full">Login</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Sign Up Modal -->
+        <div id="signupModal" class="fixed inset-0 z-10 flex items-center justify-center hidden">
+            <div class="overlay " id="closeoverlaytwo"></div>
+            <div class="bg-white p-8 rounded shadow-md relative z-20 popup">
+                <i class="fa fa-close close-icon" style="font-size:24px" id="closeSignup"></i>
+                <h2 class="text-2xl font-semibold mb-4">Sign Up</h2>
+                <form id="signupForm">
+                    <div class="mb-4">
+                        <label for="email" class="block text-gray-700 text-sm font-medium mb-2">Email</label>
+                        <input type="email" id="email" name="email" class="w-full border p-2 rounded"
+                            pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="password" class="block text-gray-700 text-sm font-medium mb-2">Password</label>
+                        <input type="password" id="password" name="password" class="w-full border p-2 rounded" required>
+                    </div>
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-full">Sign
+                        Up</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- New Account Hero Section -->
+        <section id="new-account" class="bg-green-500 text-white h-screen flex items-center justify-center">
+            <div class="text-center container px-4 max-w-7xl mx-auto">
+                <h1 class="text-3xl md:text-4xl font-bold mb-4">Create a New Account</h1>
+                <p class=" text-[14px] sm:text-[16px] md:text-lg mb-8">Join us and experience the best services.</p>
+                <button id="getStartedBtn"
+                    class="bg-white text-green-500 hover:text-green-700 py-2 px-4 rounded-full">Get
+                    Started</button>
+            </div>
+        </section>
+
+        <!-- Popup for Get Started -->
+        <div id="getStartedPopup" class="fixed inset-0 z-10 flex items-center justify-center hidden">
+            <div class="overlay" id="closeoverlaythree"></div>
+            <div class="bg-white p-8 rounded shadow-md relative z-20 popup">
+                <i class="fa fa-close close-icon" style="font-size:24px" id="closeGetStarted"></i>
+                <h2 class="text-2xl font-semibold mb-4">Get Started</h2>
+                <form id="getStartedForm">
+                    <div class="mb-4">
+                        <label for="name" class="block text-gray-700 text-sm font-medium mb-2">Name</label>
+                        <input type="text" id="name" name="name" class="w-full border p-2 rounded" pattern="[A-Za-z\s]"
+                            required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="dob" class="block text-gray-700 text-sm font-medium mb-2">Date of Birth</label>
+                        <input type="text" id="dob" name="dob" class="w-full border p-2 rounded" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="email" class="block text-gray-700 text-sm font-medium mb-2">Email</label>
+                        <input type="email" id="email" name="email" class="w-full border p-2 rounded"
+                            pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="phone" class="block text-gray-700 text-sm font-medium mb-2">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" class="w-full border p-2 rounded" pattern="[0-9]{10}"
+                            required>
+                    </div>
+                    <button type="submit"
+                        class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-full">Submit</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="bg-gray-700 text-white p-4 text-center" id="footer">
+            <!-- The year will be dynamically inserted here -->
+        </footer>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"
+        integrity="sha384-iRE3h9T5aBJVf0Ud6o8mLOo7duX1d0FqR+C8dIHNdqqWXVq1i1b+4UfFDe8d4Evq"
+        crossorigin="anonymous"></script>
+    <script>
+        // JavaScript for handling modals and form validation
+        document.addEventListener('DOMContentLoaded', function () {
+            const loginBtn = document.getElementById('loginBtn');
+            const signupBtn = document.getElementById('signupBtn');
+            const loginModal = document.getElementById('loginModal');
+            const signupModal = document.getElementById('signupModal');
+            const closeLogin = document.getElementById('closeLogin');
+            const closeSignup = document.getElementById('closeSignup');
+            const getStartedBtn = document.getElementById('getStartedBtn');
+            const closeGetStarted = document.getElementById('closeGetStarted');
+            const getStartedPopup = document.getElementById('getStartedPopup');
+            const loginForm = document.getElementById('loginForm');
+            const signupForm = document.getElementById('signupForm');
+            const getStartedForm = document.getElementById('getStartedForm');
+            const closeoverlay = document.getElementById('closeoverlay');
+            const closeoverlaythree = document.getElementById('closeoverlaythree');
+            const closeoverlaytwo = document.getElementById('closeoverlaytwo');
+
+            const closeModal = function (modal) {
+                modal.classList.add('hidden');
+                document.body.style.overflow = ''; // Enable scrolling
+            };
+
+            loginBtn.addEventListener('click', function () {
+                loginModal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            });
+
+            signupBtn.addEventListener('click', function () {
+                signupModal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            });
+
+            closeLogin.addEventListener('click', function () {
+                closeModal(loginModal);
+            });
+
+            closeoverlay.addEventListener('click', function () {
+                closeModal(loginModal);
+            });
+
+            closeoverlaytwo.addEventListener('click', function () {
+                closeModal(signupModal);
+            });
+
+            closeSignup.addEventListener('click', function () {
+                closeModal(signupModal);
+            });
+            closeoverlaythree.addEventListener('click', function () {
+                closeModal(getStartedPopup);
+            });
+            getStartedBtn.addEventListener('click', function () {
+                getStartedPopup.classList.remove('hidden');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            });
+
+            closeGetStarted.addEventListener('click', function () {
+                closeModal(getStartedPopup);
+            });
+
+            // Close modals when clicking outside or on the overlay
+            window.addEventListener('click', function (event) {
+                if (event.target === loginModal || event.target.closest('#closeLogin')) {
+                    closeModal(loginModal);
+                }
+
+                if (event.target === signupModal || event.target.closest('#closeSignup')) {
+                    closeModal(signupModal);
+                }
+
+                if (event.target === getStartedPopup || event.target.closest('#closeGetStarted')) {
+                    closeModal(getStartedPopup);
+                }
+            });
+
+            // Prevent the modal from closing when clicking inside the modal content
+            loginModal.addEventListener('click', function (event) {
+                event.stopPropagation();
+            });
+
+            signupModal.addEventListener('click', function (event) {
+                event.stopPropagation();
+            });
+
+            getStartedPopup.addEventListener('click', function (event) {
+                event.stopPropagation();
+            });
+
+            // Form validation
+            loginForm.addEventListener('submit', function (event) {
+                if (!loginForm.checkValidity()) {
+                    alert('Please fill in all required fields.');
+                    event.preventDefault();
+                }
+            });
+
+            signupForm.addEventListener('submit', function (event) {
+                if (!signupForm.checkValidity()) {
+                    alert('Please fill in all required fields.');
+                    event.preventDefault();
+                }
+            });
+
+            getStartedForm.addEventListener('submit', function (event) {
+                if (!getStartedForm.checkValidity()) {
+                    alert('Please fill in all required fields.');
+                    event.preventDefault();
+                }
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // JavaScript for handling modals and form validation
+
+            // ... Your existing JavaScript code ...
+
+            // Update the footer with the current year
+            const currentYear = new Date().getFullYear();
+            document.getElementById('footer').innerHTML = `&copy; ${currentYear} Your Website. All rights reserved.`;
+        });
+    </script>
+
+</body>
+
+</html>
